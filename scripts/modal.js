@@ -1,4 +1,5 @@
 import {Language} from "./language.js";
+import {Game} from "./game/game.js";
 const languageObject = new Language();
 
 export class Modal {
@@ -213,6 +214,7 @@ export class Modal {
 
 	newGame = () => {
 		this.makeUnactive();
+		new Game(JSON.parse(localStorage.getItem('settings'))).initGameArea();
 		console.log('New game')
 	}
 	saveGame = () => {
