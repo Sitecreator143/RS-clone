@@ -290,8 +290,12 @@ export class Modal {
 }
 =======
 import {Language} from "./language.js";
+<<<<<<< HEAD
 import {initGame} from "./game/game.js";
 
+=======
+import {Game} from "./game/game.js";
+>>>>>>> e7745d9... implement partically classes Game,Game Area
 const languageObject = new Language();
 
 
@@ -528,7 +532,11 @@ export class Modal {
 
 	newGame = () => {
 		this.makeUnactive();
+<<<<<<< HEAD
 		initGame(JSON.parse(localStorage.getItem('settings')));
+=======
+		new Game(JSON.parse(localStorage.getItem('settings'))).initGameArea();
+>>>>>>> e7745d9... implement partically classes Game,Game Area
 		console.log('New game')
 	}
 	saveGame = () => {
