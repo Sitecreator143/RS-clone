@@ -3,6 +3,7 @@ import { languages } from "./language.js";
 import { DB } from "../main.js";
 import {initGame} from "./game/game.js";
 
+
 export class Modal {
   constructor() {
     this.burger = document.querySelector("[data-burger]");
