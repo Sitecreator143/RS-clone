@@ -47,7 +47,7 @@ export class Game {
 
   createNewGameArea() {
     if (this.savedGameData === null) {
-      this.createNewGame();
+      this.createNewGame(this.templateGameData, this.templatePlayerData);
       initGameArea(this.settings, this.currentGameData);
       scoresSheet.markCurrentPlayer();
       this.setEventListener();
@@ -56,11 +56,11 @@ export class Game {
     }
   }
 
-  createNewGame() {
-    this.currentGameData = JSON.parse(JSON.stringify(this.templateGameData));
+  createNewGame(gameData, playerData) {
+    this.currentGameData = JSON.parse(JSON.stringify(gameData));
     this.setCurrentPlayer();
     this.players.forEach(player => {
-      let currentPlayer = JSON.parse(JSON.stringify(this.templatePlayerData));
+      let currentPlayer = JSON.parse(JSON.stringify(playerData));
       currentPlayer.playerName = player;
       this.currentGameData.players.push(currentPlayer);
     });
@@ -78,6 +78,7 @@ export class Game {
   }
 
   rollTheDices() {
+    console.log(this.settings, this.currentGameData)
     this.checkPlaySound("A1");
     if (game.currentGameData.currentAttempt === 3 && this.currentCombinationIsChosen === false) {
       return null;

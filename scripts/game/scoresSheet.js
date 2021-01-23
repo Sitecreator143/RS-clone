@@ -277,10 +277,18 @@ export class ScoresSheet {
     });
   }
 
+  saveAcceptedCombo(acceptedCombo, valueCombo) {
+    const currentPlayer = this.gameData.currentPlayer;
+    const idx = this.gameData.players.findIndex(player => player.playerName === currentPlayer);
+    this.gameData.players[idx].playerCombos[acceptedCombo] = valueCombo;
+  }
+
   acceptCombination(target) {
     this.checkPlaySound("A2");
     if (target.attributes[0].name === "data-player-prop" && !target.classList.contains("accepted")) {
       const parent = target.parentNode.childNodes;
+      const acceptedCombo = target.getAttribute("data-player-prop");
+      this.saveAcceptedCombo(acceptedCombo, this.combos[acceptedCombo]);
       target.classList.add("accepted");
       parent.forEach(item => {
         const child = item;
