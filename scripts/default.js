@@ -28,18 +28,18 @@ export const defaultGameSettings = {
 export const defaultPlayerData = {
   playerName: defaultSettings.playerName,
   playerCombos: {
-    one: 0,
-    two: 0,
-    tree: 0,
-    four: 0,
-    five: 0,
-    six: 0,
-    sum: 0,
-    smallStraight: 0,
-    longStraight: 0,
-    fullHouse: 0,
-    fourOfKind: 0,
-    poker: 0
+    one: { value: 0, accepted: false },
+    two: { value: 0, accepted: false },
+    three: { value: 0, accepted: false },
+    four: { value: 0, accepted: false },
+    five: { value: 0, accepted: false },
+    six: { value: 0, accepted: false },
+    sum: { value: 0, accepted: false },
+    smallStraight: { value: 0, accepted: false },
+    longStraight: { value: 0, accepted: false },
+    fullHouse: { value: 0, accepted: false },
+    fourOfKind: { value: 0, accepted: false },
+    poker: { value: 0, accepted: false }
   },
   playerTotal: 0
 };

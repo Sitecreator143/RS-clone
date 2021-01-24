@@ -38,7 +38,7 @@ export class Game {
     this.language = this.settings[2].settingValue;
     this.langIdx = languages.findIndex(item => item.langName === this.language);
     this.master = settings.playerName;
-    this.savedGameData = savedGame;
+    this.savedGameData = savedGame === null ? null : savedGame;
     this.currentGameData = null;
     this.lastEmptyRollDiceArea = [];
     this.templateGameData = defaultGameSettings;
@@ -52,7 +52,17 @@ export class Game {
       scoresSheet.markCurrentPlayer();
       this.setEventListener();
     } else {
-      this.loadGame();
+      this.currentGameData = this.savedGameData;
+      this.settings[0].settingValue = this.currentGameData.players.length;
+      this.settings[1].settingValue = [];
+      this.currentGameData.players.forEach(player => {
+        this.settings[1].settingValue.push(player.playerName);
+      });
+      this.players = this.settings[1].settingValue;
+      initGameArea(this.settings, this.currentGameData);
+      this.restoreSavedGame();
+      scoresSheet.markCurrentPlayer();
+      this.setEventListener();
     }
   }
 
@@ -67,8 +77,12 @@ export class Game {
   }
 
   setCurrentPlayer() {
-    const currentPlayer = this.players[0];
-    this.currentGameData.currentPlayer = currentPlayer;
+    if (this.savedGameData === null) {
+      const currentPlayer = this.players[0];
+      this.currentGameData.currentPlayer = currentPlayer;
+    } else {
+      this.currentGameData.currentPlayer = this.savedGameData.currentPlayer;
+    }
   }
 
   getRandomInt(min, max) {
@@ -77,8 +91,35 @@ export class Game {
     return Math.floor(Math.random() * (this.max - this.min)) + min;
   }
 
+  restoreSavedGame() {
+    if (game.currentGameData.currentAttempt === 3 && this.currentCombinationIsChosen === false) {
+      return null;
+    }
+    const rollDiceArea = document.querySelector("[data-roll-dice-area]").childNodes;
+    rollDiceArea.forEach((item) => {
+      let area = item;
+      if (area.attributes[0].nodeValue !== "") {
+        area.style.background = `url('img/game/dice-${area.attributes[0].nodeValue}.png') center / cover no-repeat `;
+      }
+    });
+    const diceCells = gameLobby.diceCells.childNodes;
+    diceCells.forEach((item) => {
+      const cell = item;
+      if (cell.attributes[0].nodeValue !== "") {
+        cell.style.background = `url('img/game/dice-${cell.attributes[0].nodeValue}.png ') center / cover no-repeat `;
+      }
+    });
+    if (this.findFirstFreeCellInDiceCells() !== (-1)) {
+      this.getCurrentDices();
+      this.getTotalCombination();
+      scoresSheet.updateScoresSheet(this.currentGameData.totalCombination);
+    }
+    scoresSheet.putValuesInTable(this.currentGameData.currentPlayer);
+    game.currentCombinationIsChosen = false;
+    return this;
+  }
+
   rollTheDices() {
-    console.log(this.settings, this.currentGameData)
     this.checkPlaySound("A1");
     if (game.currentGameData.currentAttempt === 3 && this.currentCombinationIsChosen === false) {
       return null;
@@ -144,6 +185,11 @@ export class Game {
     const currentPlayer = this.currentGameData.currentPlayer;
     const players = this.currentGameData.players;
     const indexPlayer = players.findIndex(player => player.playerName === currentPlayer);
+    // if(indexPlayer > players.length - 1) {
+
+    // } else {
+
+    // }
     this.currentGameData.currentPlayer = this.currentGameData.players[indexPlayer + 1].playerName;
     scoresSheet.markCurrentPlayer();
     scoresSheet.changeIndicator("data-current-player-indicator", `${languages[this.langIdx].scoresSheet[1]}:${this.currentGameData.currentPlayer}`);
@@ -221,7 +267,14 @@ export class Game {
   }
 
   putChosenDiceInRollDiceArea(target) {
-    const freeCell = this.lastEmptyRollDiceArea.pop();
+    var freeCell = this.lastEmptyRollDiceArea.pop();
+    if (freeCell === undefined) {
+      gameLobby.rollDiceArea.childNodes.forEach(item => {
+        if (item.attributes[0].nodeValue === "") {
+          freeCell = item.attributes[0].name;
+        }
+      });
+    }
     const value = this.getDiceValueFromChosenDice(target);
     this.target = target;
     this.target.attributes[0].nodeValue = "";
