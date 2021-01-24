@@ -21,7 +21,6 @@ export function loadSettingsFromDB(callback) {
 }
 
 export class Settings {
-  //#settings = defaultSettings;
   constructor(settings) {
     this.settings = settings || defaultSettings;
   }
