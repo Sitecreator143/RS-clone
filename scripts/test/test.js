@@ -59,9 +59,6 @@ describe("Проверка аудио", function () {
   it("Нота А7 сыграла", function () {
     assert.equal(audioAPI.playNote("A7"), undefined);
   });
-  it("Нота А8 сыграла", function () {
-    assert.equal(audioAPI.playNote("A8"), undefined);
-  });
 });
 
 /** Elements sizes */
