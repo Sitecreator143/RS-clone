@@ -162,7 +162,11 @@ export class ScoresSheet {
     this.addScoresSheetTable();
     this.createMainColumn();
     this.addMainColumn();
-    this.createPlayerColumns();
+    if (game.savedGameData !== null) {
+      this.createSavedPlayerColumns();
+    } else {
+      this.createPlayerColumns();
+    }
     this.addPlayerColumns();
     this.setEventListener();
     return this.emptySheet;
@@ -263,6 +267,41 @@ export class ScoresSheet {
     this.playerColumns = playerColumns;
   }
 
+  createSavedPlayerColumns() {
+    const playerColumns = document.createElement("div");
+    playerColumns.setAttribute("data-player-columns", "");
+    playerColumns.style.gridTemplateColumns = `repeat(${this.numberPlayer},1fr)`;
+    this.players.forEach((player, idx) => {
+      const playerColumn = document.createElement("div");
+      playerColumn.setAttribute("data-player-column", `${player.playerName}`);
+      const props = Object.keys(languages[this.langIdx].nameOfTableCells);
+      props.forEach((item) => {
+        const cell = document.createElement("div");
+        cell.setAttribute("data-player-prop", `${item}`);
+        if (item !== "player-name" && item !== "Total") {
+          if (this.gameData.players[idx].playerCombos[item].accepted) {
+            cell.classList.add("accepted");
+            cell.textContent = this.gameData.players[idx].playerCombos[item].value;
+          } else {
+            cell.textContent = 0;
+          }
+        } else {
+          if (item === "player-name") {
+            cell.textContent = player.playerName;
+          }
+          if (item === "Total") {
+            cell.textContent = player.playerTotal;
+            cell.textContent = "";
+          }
+        }
+        cell.style.border = "1px solid black";
+        playerColumn.appendChild(cell);
+      });
+      playerColumns.appendChild(playerColumn);
+    });
+    this.playerColumns = playerColumns;
+  }
+
   addPlayerColumns() {
     this.scoresSheetTable.appendChild(this.playerColumns);
   }
@@ -277,10 +316,19 @@ export class ScoresSheet {
     });
   }
 
+  saveAcceptedCombo(acceptedCombo, valueCombo) {
+    const currentPlayer = this.gameData.currentPlayer;
+    const idx = this.gameData.players.findIndex(player => player.playerName === currentPlayer);
+    this.gameData.players[idx].playerCombos[acceptedCombo].value = valueCombo;
+    this.gameData.players[idx].playerCombos[acceptedCombo].accepted = true;
+  }
+
   acceptCombination(target) {
     this.checkPlaySound("A2");
     if (target.attributes[0].name === "data-player-prop" && !target.classList.contains("accepted")) {
       const parent = target.parentNode.childNodes;
+      const acceptedCombo = target.getAttribute("data-player-prop");
+      this.saveAcceptedCombo(acceptedCombo, this.combos[acceptedCombo]);
       target.classList.add("accepted");
       parent.forEach(item => {
         const child = item;
@@ -299,6 +347,8 @@ export class ScoresSheet {
       game.clearRollDiceArea();
       game.clearDiceCells();
       game.currentGameData.currentCombination = [];
+      game.currentGameData.currentDices = [];
+      game.currentGameData.totalCombination = [];
     }
   }
 

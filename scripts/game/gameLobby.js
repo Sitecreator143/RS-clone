@@ -25,9 +25,15 @@ export class GameLobby {
     this.createDiceCellsSubscriptions();
     this.addDiceCellsSubscriptions();
     this.createDiceCells();
+    if (game.savedGameData !== null) {
+      this.setSavedDiceCells();
+    }
     this.addDiceCells();
     this.createRollDiceArea();
     this.addRollDiceArea();
+    if (game.savedGameData !== null) {
+      this.setSavedRollDiceArea();
+    }
     this.createButtons();
     this.addButtons();
     this.setEventListener();
@@ -74,6 +80,15 @@ export class GameLobby {
     this.diceCells = diceCells;
   }
 
+  setSavedDiceCells() {
+    const currentCombination = game.currentGameData.currentCombination;
+    const diceCells = this.diceCells.childNodes;
+    diceCells.forEach((item, i) => {
+      const cell = item;
+      cell.attributes[0].value = currentCombination[i];
+    });
+  }
+
   addDiceCells() {
     this.lobbyClothContainer.appendChild(this.diceCells);
   }
@@ -83,6 +98,15 @@ export class GameLobby {
     rollDiceArea.setAttribute("data-roll-dice-area", "");
     rollDiceArea.innerHTML = "<div data-roll-dice-area-1></div><div data-roll-dice-area-2></div><div data-roll-dice-area-3></div><div data-roll-dice-area-4></div><div data-roll-dice-area-5></div>";
     this.rollDiceArea = rollDiceArea;
+  }
+
+  setSavedRollDiceArea() {
+    const currentDices = game.currentGameData.currentDices;
+    const dices = this.rollDiceArea.childNodes;
+    dices.forEach((item, i) => {
+      const dice = item;
+      dice.attributes[0].value = currentDices[i];
+    });
   }
 
   addRollDiceArea() {
