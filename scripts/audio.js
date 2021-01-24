@@ -3,7 +3,7 @@ export class Audio {
   constructor() {
     this.context = new (window.AudioContext || window.webkitAudioContext)();
     this.notes = [
-      { noteName: "A0", noteFrequency: "27,5" },
+      { noteName: "A0", noteFrequency: "27.5" },
       { noteName: "A1", noteFrequency: "55" },
       { noteName: "A2", noteFrequency: "110" },
       { noteName: "A3", noteFrequency: "220" },
