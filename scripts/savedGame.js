@@ -1,5 +1,7 @@
 /* eslint-disable linebreak-style */
-export const savedGame = {
+// Это для примера. За ненадобностью можно удалить файл
+// Объект игры для сохранения необходимо забирать отсюда: game.currentGameData
+const savedGame = {
   playerName: "Player1",
   playID: "1",
   playBeginDateTime: null,

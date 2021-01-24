@@ -52,12 +52,13 @@ export class Game {
       scoresSheet.markCurrentPlayer();
       this.setEventListener();
     } else {
-      this.currentGameData = this.savedGameData;
-      this.settings[0].settingValue = this.currentGameData.players.length;
-      this.settings[1].settingValue = [];
-      this.currentGameData.players.forEach(player => {
-        this.settings[1].settingValue.push(player.playerName);
-      });
+      // Оставил для теста.Удалю после реализации загрузки.
+      // this.currentGameData = this.savedGameData;
+      // this.settings[0].settingValue = this.currentGameData.players.length;
+      // this.settings[1].settingValue = [];
+      // this.currentGameData.players.forEach(player => {
+      //   this.settings[1].settingValue.push(player.playerName);
+      // });
       this.players = this.settings[1].settingValue;
       initGameArea(this.settings, this.currentGameData);
       this.restoreSavedGame();
