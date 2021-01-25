@@ -5,7 +5,24 @@ import { scoresSheet } from "./scoresSheet.js";
 import { languages } from "../language.js";
 import { defaultGameSettings } from "../default.js";
 import { defaultPlayerData } from "../default.js";
-import { audioAPI } from "../../main.js";
+import { audioAPI, globalSettings } from "../../main.js";
+import { currentLogin } from "../../main.js";
+import { DB } from "../../main.js";
+
+export function loadGameFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("game")) || defaultGameSettings;
+}
+
+export function loadGameFromDB() {
+  let loadGame = DB.loadGame(currentLogin.playerName);
+  loadGame
+    .then((loadedGame) => {
+      initGame(globalSettings.getSettings(), loadedGame);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 export var game = null;
 const setHotKeys = (e) => {
@@ -37,12 +54,12 @@ export class Game {
     this.players = this.settings[1].settingValue;
     this.language = this.settings[2].settingValue;
     this.langIdx = languages.findIndex(item => item.langName === this.language);
-    this.master = settings.playerName;
     this.savedGameData = savedGame === null ? null : savedGame;
     this.currentGameData = null;
     this.lastEmptyRollDiceArea = [];
     this.templateGameData = defaultGameSettings;
     this.templatePlayerData = defaultPlayerData;
+    this.templateGameData.playerName = currentLogin.playerName;
   }
 
   createNewGameArea() {
@@ -60,7 +77,8 @@ export class Game {
       //   this.settings[1].settingValue.push(player.playerName);
       // });
       this.players = this.settings[1].settingValue;
-      initGameArea(this.settings, this.currentGameData);
+      this.currentGameData = this.savedGameData;
+      initGameArea(this.settings, this.savedGameData);      
       this.restoreSavedGame();
       scoresSheet.markCurrentPlayer();
       this.setEventListener();

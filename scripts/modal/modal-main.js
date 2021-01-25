@@ -5,6 +5,10 @@ import { ModalSettings } from "./modal-settings.js";
 import { ModalLogin } from "./modal-login.js";
 import { ModalRules } from "./modal-rules.js";
 import { initGame } from "../game/game.js";
+import { DB } from "../../main.js";
+import { game } from "../game/game.js";
+import { loadGameFromDB } from "../game/game.js";
+
 
 export class ModalMain extends Modal {
   createModalMain() {
@@ -77,11 +81,13 @@ export class ModalMain extends Modal {
 
   saveGame() {
     modalTypesObject.modal.makeUnactive();
+    DB.saveGame(JSON.parse(JSON.stringify(game.currentGameData)));
     return this;
   }
 
   loadGame() {
     modalTypesObject.modal.makeUnactive();
+    loadGameFromDB();
     return this;
   }
 }

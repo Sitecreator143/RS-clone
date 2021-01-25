@@ -20,7 +20,7 @@ export class DataBase {
       store: null
     };
 
-    this.playsStore = {
+    this.playsTable = {
       name: dbFunctions.PLAYS_TABLE,
       keyField: "playerName",
       store: null
@@ -44,7 +44,7 @@ export class DataBase {
   }
 
   loadGame(playerName) {
-    dbFunctions.loadData(this.dataBaseDef, this.playsStore, playerName);
+    return dbFunctions.loadData(this.dataBaseDef, this.playsTable, playerName);
   }
 
   saveSettings(data) {
@@ -56,6 +56,6 @@ export class DataBase {
   }
 
   saveGame(data) {
-    dbFunctions.saveData(this.dataBaseDef, this.playsStore, data);
+    dbFunctions.saveData(this.dataBaseDef, this.playsTable, data);
   }
 }
