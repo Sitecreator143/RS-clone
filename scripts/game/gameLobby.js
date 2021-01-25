@@ -16,6 +16,7 @@ export class GameLobby {
     this.rollDiceArea = null;
     this.rollButton = null;
     this.rollDiceButton = null;
+    this.winnerWindow = null;
   }
 
   renderGameLobby() {
@@ -36,6 +37,8 @@ export class GameLobby {
     }
     this.createButtons();
     this.addButtons();
+    this.createWinnerWindow();
+    this.addWinnerWindow();
     this.setEventListener();
     return this.lobbyCloth;
   }
@@ -134,6 +137,41 @@ export class GameLobby {
     this.lobbyClothContainer.appendChild(this.rollButton);
   }
 
+  createWinnerWindow() {
+    const winnerWindow = document.createElement("div");
+    const winnerWindowContainer = document.createElement("div");
+    const winnerCaption = document.createElement("div");
+    const winnerName = document.createElement("div");
+    const winnerPoints = document.createElement("div");
+    winnerWindow.setAttribute("data-winner-window", "");
+    winnerWindowContainer.setAttribute("data-winner-window-container", "");
+    winnerCaption.setAttribute("data-winner-caption", "");
+    winnerName.setAttribute("data-winner-name", "");
+    winnerPoints.setAttribute("data-winner-points", "");
+    winnerCaption.innerHTML = "<div data-letter = \"w\"></div>"
+    + "<div data-letter = \"i\"></div>"
+    + "<div data-letter = \"n\"></div>"
+    + "<div data-letter = \"n\"></div>"
+    + "<div data-letter = \"e\"></div>"
+    + "<div data-letter = \"r\"></div>";
+    winnerWindowContainer.appendChild(winnerCaption, winnerName, winnerPoints);
+    winnerWindow.appendChild(winnerWindowContainer);
+    this.renderWinnerCaption(winnerCaption);
+    this.winnerWindow = winnerWindow;
+  }
+
+  renderWinnerCaption(caption) {
+    this.winnerCaption = caption.childNodes;
+    this.winnerCaption.forEach(item => {
+      const letter = item;
+      letter.style.background = `url('img/game/${letter.attributes[0].nodeValue}.png ') center / cover no-repeat `;
+    });
+  }
+
+  addWinnerWindow() {
+    this.lobbyCloth.appendChild(this.winnerWindow);
+  }
+
   setEventListener() {
     const lobbyCloth = this.lobbyCloth;
     lobbyCloth.addEventListener("click", (e) => {
@@ -153,5 +191,4 @@ export class GameLobby {
 }
 export function initGameLobby(settings) {
   gameLobby = new GameLobby(settings);
-  gameLobby.renderGameLobby();
 }
