@@ -43,6 +43,7 @@ export class Game {
     this.lastEmptyRollDiceArea = [];
     this.templateGameData = defaultGameSettings;
     this.templatePlayerData = defaultPlayerData;
+    this.isGameFinished = false;
   }
 
   createNewGameArea() {
@@ -121,6 +122,9 @@ export class Game {
   }
 
   rollTheDices() {
+    if (this.isGameFinished) {
+      return null;
+    }
     this.checkPlaySound("A1");
     if (game.currentGameData.currentAttempt === 3 && this.currentCombinationIsChosen === false) {
       return null;
@@ -183,14 +187,14 @@ export class Game {
   }
 
   changeCurrentPlayer() {
+    if (this.isGameFinished) {
+      this.currentGameData.currentPlayer = "-";
+      scoresSheet.changeIndicator("data-current-player-indicator", `${languages[this.langIdx].scoresSheet[1]}:${this.currentGameData.currentPlayer}`);
+      return;
+    }
     const currentPlayer = this.currentGameData.currentPlayer;
     const players = this.currentGameData.players;
     const indexPlayer = players.findIndex(player => player.playerName === currentPlayer);
-    // if(indexPlayer > players.length - 1) {
-
-    // } else {
-
-    // }
     this.currentGameData.currentPlayer = this.currentGameData.players[indexPlayer + 1].playerName;
     scoresSheet.markCurrentPlayer();
     scoresSheet.changeIndicator("data-current-player-indicator", `${languages[this.langIdx].scoresSheet[1]}:${this.currentGameData.currentPlayer}`);
@@ -204,6 +208,9 @@ export class Game {
     this.currentGameData.playRound += 1;
     if (this.currentGameData.playRound === 13) {
       this.finishGame();
+      this.currentGameData.playRound = "-";
+      scoresSheet.changeIndicator("data-current-round-indicator", `${languages[this.langIdx].scoresSheet[0]}:${this.currentGameData.playRound}`);
+      return;
     }
     scoresSheet.changeIndicator("data-current-round-indicator", `${languages[this.langIdx].scoresSheet[0]}:${this.currentGameData.playRound}`);
   }
@@ -296,8 +303,30 @@ export class Game {
   }
 
   finishGame() {
+    this.isGameFinished = true;
     this.scoresSheet = scoresSheet;
     this.scoresSheet.getTotal();
+    const totalNodes = document.querySelectorAll("[data-player-prop=\"Total\"]");
+    const totals = [];
+    totalNodes.forEach(item => {
+      const node = item;
+      totals.push(node.textContent);
+    });
+    const winnerTotal = totals.sort((a, b) => a - b).reverse()[0];
+    const winner = [];
+    const players = document.querySelectorAll("[data-player-column]");
+    players.forEach(item => {
+      const player = item;
+      const playerProps = player.childNodes;
+      if (playerProps[playerProps.length - 1].textContent === winnerTotal) {
+        winner.push(playerProps[0].textContent);
+      }
+    });
+    const winnerName = document.querySelector("[data-winner-name]");
+    winnerName.textContent = winner.join();
+    const winnerPoints = document.querySelector("[data-winner-points]");
+    winnerPoints.textContent = winnerTotal;
+    gameLobby.winnerWindow.style.display = "block";
   }
 
   checkPlaySound(note) {
