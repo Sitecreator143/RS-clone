@@ -128,14 +128,14 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    font-size:20px;
 }
-[data-winner-name] {
+[data-winner-name],[data-winner-points] {
     font-size: 20px;
+    padding: 3px;
     color: white;
-}
-[data-winner-points] {
-    font-size: 20px;
-    color: white;
+    border: 1px white solid;
+    border-radius: 5px;
 }
 @media screen and (max-width: 1024px) {
     [data-lobby-cloth] {
@@ -175,8 +175,16 @@
         display:none;
     }
     [data-letter] {
-        width:25px;
-        height:25px;
+        width:20px;
+        height:20px;
+        font-size: 18px;
+    }
+    [data-winner-name],[data-winner-points] {
+        font-size: 18px;
+        padding: 3px;
+        color: white;
+        border: 1px white solid;
+        border-radius: 3px;
     }
 }
 
