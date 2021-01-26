@@ -142,29 +142,45 @@ export class GameLobby {
     const winnerWindowContainer = document.createElement("div");
     const winnerCaption = document.createElement("div");
     const winnerName = document.createElement("div");
+    const winnerCaptionPoints = document.createElement("div");
     const winnerPoints = document.createElement("div");
+    const winnerWord = languages[this.langIdx].winnerWindow[0].split("");
+    const pointsWord = languages[this.langIdx].winnerWindow[1].split("");
     winnerWindow.setAttribute("data-winner-window", "");
     winnerWindowContainer.setAttribute("data-winner-window-container", "");
     winnerCaption.setAttribute("data-winner-caption", "");
     winnerName.setAttribute("data-winner-name", "");
+    winnerCaptionPoints.setAttribute("data-winner-caption-points", "");
     winnerPoints.setAttribute("data-winner-points", "");
-    winnerCaption.innerHTML = "<div data-letter = \"w\"></div>"
-    + "<div data-letter = \"i\"></div>"
-    + "<div data-letter = \"n\"></div>"
-    + "<div data-letter = \"n\"></div>"
-    + "<div data-letter = \"e\"></div>"
-    + "<div data-letter = \"r\"></div>";
-    winnerWindowContainer.appendChild(winnerCaption, winnerName, winnerPoints);
-    winnerWindow.appendChild(winnerWindowContainer);
+    winnerWord.forEach(item => {
+      const letter = item;
+      const letterBox = document.createElement("div");
+      letterBox.setAttribute("data-letter", `${letter}`);
+      winnerCaption.appendChild(letterBox);
+    });
+    winnerName.textContent = "Name";
+    pointsWord.forEach(item => {
+      const letter = item;
+      const letterBox = document.createElement("div");
+      letterBox.setAttribute("data-letter", `${letter}`);
+      winnerCaptionPoints.appendChild(letterBox);
+    });
+    winnerPoints.textContent = "1000";
+    winnerWindowContainer.append(winnerCaption, winnerName, winnerCaptionPoints, winnerPoints);
+    winnerWindow.append(winnerWindowContainer);
     this.renderWinnerCaption(winnerCaption);
+    this.renderWinnerCaption(winnerCaptionPoints);
     this.winnerWindow = winnerWindow;
   }
 
   renderWinnerCaption(caption) {
-    this.winnerCaption = caption.childNodes;
-    this.winnerCaption.forEach(item => {
+    this.caption = caption.childNodes;
+    this.caption.forEach(item => {
       const letter = item;
-      letter.style.background = `url('img/game/${letter.attributes[0].nodeValue}.png ') center / cover no-repeat `;
+      letter.style.background = "white";
+      letter.style.borderRadius = "5px";
+      letter.style.color = "black";
+      letter.textContent = letter.attributes[0].nodeValue.toUpperCase();
     });
   }
 
