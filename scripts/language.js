@@ -25,7 +25,8 @@ export const languages = [
       longStraight: "Long straight",
       Total: "Total"
     },
-    scoresSheet: ["Current round", "Current player", "Current attempt", "Scores sheet"]
+    scoresSheet: ["Current round", "Current player", "Current attempt", "Scores sheet"],
+    winnerWindow: ["winner", "points"]
   },
   {
     langName: "Russian",
@@ -52,7 +53,8 @@ export const languages = [
       longStraight: "Длинный стрит",
       Total: "Всего"
     },
-    scoresSheet: ["Текущий раунд", "Текущий игрок", "Текущая попытка", "Лист результатов"]
+    scoresSheet: ["Текущий раунд", "Текущий игрок", "Текущая попытка", "Лист результатов"],
+    winnerWindow: ["победитель", "очков"]
   },
   {
     langName: "Italian",
@@ -79,6 +81,7 @@ export const languages = [
       longStraight: "Long scala",
       Total: "Total"
     },
-    scoresSheet: ["Round in corso", "Giocatore attuale", "Tentativo attuale", "Foglio dei resultati"]
+    scoresSheet: ["Round in corso", "Giocatore attuale", "Tentativo attuale", "Foglio dei resultati"],
+    winnerWindow: ["vincitore", "punti"]
   }
 ];

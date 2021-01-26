@@ -16,6 +16,7 @@ export class GameLobby {
     this.rollDiceArea = null;
     this.rollButton = null;
     this.rollDiceButton = null;
+    this.winnerWindow = null;
   }
 
   renderGameLobby() {
@@ -36,6 +37,8 @@ export class GameLobby {
     }
     this.createButtons();
     this.addButtons();
+    this.createWinnerWindow();
+    this.addWinnerWindow();
     this.setEventListener();
     return this.lobbyCloth;
   }
@@ -134,6 +137,57 @@ export class GameLobby {
     this.lobbyClothContainer.appendChild(this.rollButton);
   }
 
+  createWinnerWindow() {
+    const winnerWindow = document.createElement("div");
+    const winnerWindowContainer = document.createElement("div");
+    const winnerCaption = document.createElement("div");
+    const winnerName = document.createElement("div");
+    const winnerCaptionPoints = document.createElement("div");
+    const winnerPoints = document.createElement("div");
+    const winnerWord = languages[this.langIdx].winnerWindow[0].split("");
+    const pointsWord = languages[this.langIdx].winnerWindow[1].split("");
+    winnerWindow.setAttribute("data-winner-window", "");
+    winnerWindowContainer.setAttribute("data-winner-window-container", "");
+    winnerCaption.setAttribute("data-winner-caption", "");
+    winnerName.setAttribute("data-winner-name", "");
+    winnerCaptionPoints.setAttribute("data-winner-caption-points", "");
+    winnerPoints.setAttribute("data-winner-points", "");
+    winnerWord.forEach(item => {
+      const letter = item;
+      const letterBox = document.createElement("div");
+      letterBox.setAttribute("data-letter", `${letter}`);
+      winnerCaption.appendChild(letterBox);
+    });
+    winnerName.textContent = "Name";
+    pointsWord.forEach(item => {
+      const letter = item;
+      const letterBox = document.createElement("div");
+      letterBox.setAttribute("data-letter", `${letter}`);
+      winnerCaptionPoints.appendChild(letterBox);
+    });
+    winnerPoints.textContent = "1000";
+    winnerWindowContainer.append(winnerCaption, winnerName, winnerCaptionPoints, winnerPoints);
+    winnerWindow.append(winnerWindowContainer);
+    this.renderWinnerCaption(winnerCaption);
+    this.renderWinnerCaption(winnerCaptionPoints);
+    this.winnerWindow = winnerWindow;
+  }
+
+  renderWinnerCaption(caption) {
+    this.caption = caption.childNodes;
+    this.caption.forEach(item => {
+      const letter = item;
+      letter.style.background = "white";
+      letter.style.borderRadius = "5px";
+      letter.style.color = "black";
+      letter.textContent = letter.attributes[0].nodeValue.toUpperCase();
+    });
+  }
+
+  addWinnerWindow() {
+    this.lobbyCloth.appendChild(this.winnerWindow);
+  }
+
   setEventListener() {
     const lobbyCloth = this.lobbyCloth;
     lobbyCloth.addEventListener("click", (e) => {
@@ -153,5 +207,4 @@ export class GameLobby {
 }
 export function initGameLobby(settings) {
   gameLobby = new GameLobby(settings);
-  gameLobby.renderGameLobby();
 }
