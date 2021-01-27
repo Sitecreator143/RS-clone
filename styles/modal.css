@@ -31,7 +31,7 @@
 }
 .modal__login {
 	font-size: 24px;
-	color:rgba(150, 50, 50, 1)
+	color:#7a1a0b;
 }
 @media (max-height: 700px) {
 	.modal__logo {

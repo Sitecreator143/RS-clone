@@ -86,24 +86,18 @@ export class ModalSettings extends Modal {
     });
     this.wrap.appendChild(wrapColor);
 
-    const saveSettingsBtn = document.createElement("div");
-    saveSettingsBtn.innerText = this.wordsArr[6];
-    saveSettingsBtn.classList.add("modal__item");
+    const saveSettingsBtn = this.createBtn(6);
     saveSettingsBtn.addEventListener("click", () => {
       this.checkPlaySound("A2");
       this.setSettings();
       modalTypesObject.modalSettings = new ModalSettings().getSettings().createModalSettings();
     });
-    this.wrap.appendChild(saveSettingsBtn);
 
-    const backSettings = document.createElement("div");
-    backSettings.innerText = this.wordsArr[7];
-    backSettings.classList.add("modal__item");
+    const backSettings = this.createBtn(7);
     backSettings.addEventListener("click", () => {
       this.checkPlaySound("A2");
       modalTypesObject.modalMain = new ModalMain().getSettings().createModalMain();
     });
-    this.wrap.appendChild(backSettings);
     return this;
   }
 }
