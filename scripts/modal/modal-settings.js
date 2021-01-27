@@ -25,7 +25,7 @@ export class ModalSettings extends Modal {
       for (let i = 0; i < +playersCount; i += 1) {
         namesInput[i] = document.createElement("textarea");
         namesInput[i].classList.add("modal__names");
-        namesInput[i].value = playersNames[i] || "Player";
+        namesInput[i].value = playersNames[i] || `Player ${i + 1}`;
         playersNames[i] = namesInput[i].value;
         namesInput[i].addEventListener("blur", () => {
           playersNames[i] = namesInput[i].value;
@@ -48,18 +48,15 @@ export class ModalSettings extends Modal {
     let languageType = this.localSettings.playerSettings.find(el => el.settingName === "language").settingValue;
     wrapLanguage.innerText = `${this.wordsArr[3]} ${languageType}`;
     wrapLanguage.classList.add("modal__text-item");
+    const nextLanguage = () => {
+      const languages = ["English", "Russian", "Italian"];
+      const currentLanguageIndex = languages.indexOf(languageType);
+      const languagesCount = 3;
+      languageType = languages[(currentLanguageIndex + 1) % languagesCount];
+    };
     wrapLanguage.addEventListener("click", () => {
       this.checkPlaySound("A2");
-      // а если у нас 10 языков будет куча else if else if
-      // надо функцию написать nextLanguage(curLanguage)
-      // которая по куругу их перебирает
-      if (languageType === "English") {
-        languageType = "Russian";
-      } else if (languageType === "Russian") {
-        languageType = "Italian";
-      } else {
-        languageType = "English";
-      }
+      nextLanguage();
       wrapLanguage.innerText = `${this.wordsArr[3]} ${languageType}`;
       this.localSettings.playerSettings.find(el => el.settingName === "language").settingValue = languageType;
     });
@@ -89,24 +86,18 @@ export class ModalSettings extends Modal {
     });
     this.wrap.appendChild(wrapColor);
 
-    const saveSettingsBtn = document.createElement("div");
-    saveSettingsBtn.innerText = this.wordsArr[6];
-    saveSettingsBtn.classList.add("modal__item");
+    const saveSettingsBtn = this.createBtn(6);
     saveSettingsBtn.addEventListener("click", () => {
       this.checkPlaySound("A2");
       this.setSettings();
       modalTypesObject.modalSettings = new ModalSettings().getSettings().createModalSettings();
     });
-    this.wrap.appendChild(saveSettingsBtn);
 
-    const backSettings = document.createElement("div");
-    backSettings.innerText = this.wordsArr[7];
-    backSettings.classList.add("modal__item");
+    const backSettings = this.createBtn(7);
     backSettings.addEventListener("click", () => {
       this.checkPlaySound("A2");
       modalTypesObject.modalMain = new ModalMain().getSettings().createModalMain();
     });
-    this.wrap.appendChild(backSettings);
     return this;
   }
 }
