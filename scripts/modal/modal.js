@@ -62,13 +62,20 @@ export class Modal {
     const logo = document.createElement("div");
     logo.classList.add("modal__logo");
     this.modal.appendChild(logo);
+
     const logoImg = document.createElement("div");
     logoImg.classList.add("modal__img");
     logo.appendChild(logoImg);
+
     const logoText = document.createElement("div");
     logoText.innerText = this.wordsArr[0];
     logoText.classList.add("modal__text");
     logo.appendChild(logoText);
+
+    const logoLogin = document.createElement("div");
+    logoLogin.innerText = this.localSettings.playerName;
+    logoLogin.classList.add("modal__login");
+    logo.appendChild(logoLogin);
   }
 
   createWrap() {
