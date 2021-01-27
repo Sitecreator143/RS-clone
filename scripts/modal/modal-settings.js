@@ -48,18 +48,15 @@ export class ModalSettings extends Modal {
     let languageType = this.localSettings.playerSettings.find(el => el.settingName === "language").settingValue;
     wrapLanguage.innerText = `${this.wordsArr[3]} ${languageType}`;
     wrapLanguage.classList.add("modal__text-item");
+    const nextLanguage = () => {
+      const languages = ["English", "Russian", "Italian"];
+      const currentLanguageIndex = languages.indexOf(languageType);
+      const languagesCount = 3;
+      languageType = languages[(currentLanguageIndex + 1) % languagesCount];
+    };
     wrapLanguage.addEventListener("click", () => {
       this.checkPlaySound("A2");
-      // а если у нас 10 языков будет куча else if else if
-      // надо функцию написать nextLanguage(curLanguage)
-      // которая по куругу их перебирает
-      if (languageType === "English") {
-        languageType = "Russian";
-      } else if (languageType === "Russian") {
-        languageType = "Italian";
-      } else {
-        languageType = "English";
-      }
+      nextLanguage();
       wrapLanguage.innerText = `${this.wordsArr[3]} ${languageType}`;
       this.localSettings.playerSettings.find(el => el.settingName === "language").settingValue = languageType;
     });
