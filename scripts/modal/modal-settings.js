@@ -25,7 +25,7 @@ export class ModalSettings extends Modal {
       for (let i = 0; i < +playersCount; i += 1) {
         namesInput[i] = document.createElement("textarea");
         namesInput[i].classList.add("modal__names");
-        namesInput[i].value = playersNames[i] || "Player";
+        namesInput[i].value = playersNames[i] || `Player ${i + 1}`;
         playersNames[i] = namesInput[i].value;
         namesInput[i].addEventListener("blur", () => {
           playersNames[i] = namesInput[i].value;
