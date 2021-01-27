@@ -9,7 +9,6 @@ import { DB } from "../../main.js";
 import { game } from "../game/game.js";
 import { loadGameFromDB } from "../game/game.js";
 
-
 export class ModalMain extends Modal {
   createModalMain() {
     this.clearModalArea();
