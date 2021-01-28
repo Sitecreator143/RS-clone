@@ -65,20 +65,13 @@ export class Game {
   createNewGameArea() {
     if (this.savedGameData === null) {
       this.createNewGame(this.templateGameData, this.templatePlayerData);
+      this.currentGameData.settings = this.settings;
       initGameArea(this.settings, this.currentGameData);
       scoresSheet.markCurrentPlayer();
       this.setEventListener();
     } else {
       this.currentGameData = this.savedGameData;
-      //Временное решение. Изменение настроек должно выполняться в соответствие с сохраненным объектом настроек
-      //Имена игроков и их количество взяты из сохраненного объекта игры
-      this.settings[0].settingValue = this.currentGameData.players.length;
-      this.settings[1].settingValue = [];
-      this.currentGameData.players.forEach(player => {
-        this.settings[1].settingValue.push(player.playerName);
-      });
-      //Конец временного решения  
-      initGameArea(this.settings, this.savedGameData);      
+      initGameArea(this.savedGameData.settings, this.savedGameData);      
       this.restoreSavedGame();
       scoresSheet.markCurrentPlayer();
       this.setEventListener();
