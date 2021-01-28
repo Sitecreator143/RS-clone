@@ -9,6 +9,7 @@ export class ModalSignup extends Modal {
   }
 
   onSuccsessSignUp() {
+    modalTypesObject.modalSignup.checkPlaySound("Success");
     modalTypesObject.modalLogin = new ModalLogin()
       .getSettings()
       .createModalLogin();
@@ -16,6 +17,7 @@ export class ModalSignup extends Modal {
   }
 
   onErrorSignUp() {
+    modalTypesObject.modalSignup.checkPlaySound("Error");
     modalTypesObject.modalSignup = new ModalSignup()
       .getSettings()
       .createModalSignup()
@@ -56,13 +58,11 @@ export class ModalSignup extends Modal {
 
     const signup = this.createBtn(5);
     signup.addEventListener("click", () => {
-      this.checkPlaySound("A6");
       this.pushSignup(passWord.value, repeatPassWord.value, login.value);
     });
 
     const back = this.createBtn(6);
     back.addEventListener("click", () => {
-      this.checkPlaySound("A6");
       this.pushBack();
     });
     return this;

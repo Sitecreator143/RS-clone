@@ -48,7 +48,7 @@ export class ModalSettings extends Modal {
     };
     createAreaForNames();
     wrapPlayers.addEventListener("click", () => {
-      this.checkPlaySound("A2");
+      this.checkPlaySound("Push");
       playersCount = (playersCount % 4) + 1;
       wrapPlayers.innerText = `${this.wordsArr[2]} ${playersCount}`;
       this.localSettings.playerSettings.find(el => el.settingName === "playersCount").settingValue = playersCount;
@@ -65,7 +65,7 @@ export class ModalSettings extends Modal {
       languageType = languages[(currentLanguageIndex + 1) % languagesCount];
     };
     wrapLanguage.addEventListener("click", () => {
-      this.checkPlaySound("A2");
+      this.checkPlaySound("Push");
       nextLanguage();
       wrapLanguage.innerText = `${this.wordsArr[3]} ${languageType}`;
       this.localSettings.playerSettings.find(el => el.settingName === "language").settingValue = languageType;
@@ -75,7 +75,7 @@ export class ModalSettings extends Modal {
     let soundType = this.findSetting("sound");
     wrapSound.innerText = `${this.wordsArr[4]} ${soundType}`;
     wrapSound.addEventListener("click", () => {
-      this.checkPlaySound("A2");
+      this.checkPlaySound("Push");
       soundType = soundType === "on" ? "off" : "on";
       wrapSound.innerText = `${this.wordsArr[4]} ${soundType}`;
       this.localSettings.playerSettings.find(el => el.settingName === "sound").settingValue = soundType;
@@ -85,7 +85,7 @@ export class ModalSettings extends Modal {
     let colorType = this.findSetting("color");
     wrapColor.innerText = `${this.wordsArr[5]} ${colorType}`;
     wrapColor.addEventListener("click", () => {
-      this.checkPlaySound("A2");
+      this.checkPlaySound("Push");
       colorType = colorType === "red" ? "green" : "red";
       wrapColor.innerText = `${this.wordsArr[5]} ${colorType}`;
       this.localSettings.playerSettings.find(el => el.settingName === "color").settingValue = colorType;
@@ -93,14 +93,14 @@ export class ModalSettings extends Modal {
 
     const saveSettingsBtn = this.createBtn(6);
     saveSettingsBtn.addEventListener("click", () => {
-      this.checkPlaySound("A2");
+      this.checkPlaySound("Push");
       this.setSettings();
       modalTypesObject.modalSettings = new ModalSettings().getSettings().createModalSettings();
     });
 
     const backSettings = this.createBtn(7);
     backSettings.addEventListener("click", () => {
-      this.checkPlaySound("A2");
+      this.checkPlaySound("Push");
       modalTypesObject.modalMain = new ModalMain().getSettings().createModalMain();
     });
     return this;
