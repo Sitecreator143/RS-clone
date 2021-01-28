@@ -16,7 +16,7 @@ export class ModalRules extends Modal {
 
     const backSettings = this.createBtn(3);
     backSettings.addEventListener("click", () => {
-      this.checkPlaySound("A4");
+      this.checkPlaySound("Push");
       modalTypesObject.modalMain = new ModalMain().getSettings().createModalMain();
     });
     return this;

@@ -15,11 +15,13 @@ export class ModalLogin extends Modal {
   }
 
   onVerifiedLogin() {
+    modalTypesObject.modalLogin.checkPlaySound("Success");
     loadSettingsFromDB(initModalMain);
     return this;
   }
 
   onUnVerifiedLogin() {
+    modalTypesObject.modalLogin.checkPlaySound("Error");
     modalTypesObject.modalLogin = new ModalLogin()
       .getSettings()
       .createModalLogin()
@@ -28,19 +30,18 @@ export class ModalLogin extends Modal {
   }
 
   pushLogin(login, passWord) {
-    this.checkPlaySound("A3");
     currentLogin.checkPassword(login, passWord, this.onVerifiedLogin, this.onUnVerifiedLogin);
     return this;
   }
 
   pushSignup() {
-    this.checkPlaySound("A3");
+    this.checkPlaySound("Push");
     modalTypesObject.modalSignup = new ModalSignup().getSettings().createModalSignup();
     return this;
   }
 
   pushBack() {
-    this.checkPlaySound("A3");
+    this.checkPlaySound("Push");
     modalTypesObject.modalMain = new ModalMain().getSettings().createModalMain();
     return this;
   }
