@@ -135,7 +135,7 @@ export class Game {
     if (this.isGameFinished) {
       return null;
     }
-    this.checkPlaySound("A1");
+    this.checkPlaySound("Roll");
     if (game.currentGameData.currentAttempt === 3 && this.currentCombinationIsChosen === false) {
       return null;
     }
@@ -249,13 +249,13 @@ export class Game {
   }
 
   moveDiceToDicesCells(target) {
-    this.checkPlaySound("A2");
+    this.checkPlaySound("Push");
     this.putChosenDiceInFreeDiceCell(target);
     this.removeOneDice(target);
   }
 
   moveDiceToRollDiceArea(target) {
-    this.checkPlaySound("A1");
+    this.checkPlaySound("Push");
     this.putChosenDiceInRollDiceArea(target);
     this.removeOneDice(target);
   }
