@@ -7,9 +7,24 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="styles/modal.css">
+  <link rel="stylesheet" href="styles/game.css">
   <link rel="stylesheet" href="styles/gameArea.css">
 	<link rel="stylesheet" href="styles/gameLobby.css">
-	<link rel="stylesheet" href="styles/scoresSheet.css">
+  <link rel="stylesheet" href="styles/scoresSheet.css">
+  <link rel="stylesheet" href="styles/scoresSheet.css">
+  <!-- start of images preloading  -->
+  <link rel="preload" href="img/modal-img.png" as="image">
+  <link rel="preload" href="img/game/dice-1.png" as="image">
+  <link rel="preload" href="img/game/dice-2.png" as="image">
+  <link rel="preload" href="img/game/dice-3.png" as="image">
+  <link rel="preload" href="img/game/dice-4.png" as="image">
+  <link rel="preload" href="img/game/dice-5.png" as="image">
+  <link rel="preload" href="img/game/dice-6.png" as="image">
+  <link rel="preload" href="img/red.png" as="image">
+  <link rel="preload" href="img/green.png" as="image">
+  <link rel="preload" href="img/roll.svg" as="image">
+  <link rel="preload" href="img/note.png" as="image">
+  <!-- end of images preloading  -->
   <title>Document</title>
 
   <!-- Tests scripts -->
@@ -22,7 +37,11 @@
 </head>
 
 <body>
-
+  <div class="preloader">
+    <div class="preloader__container">
+      <img class="preloader__logo" src="img/preloader_dice.png" alt="" width="102px" height="114px">
+  </div>
+  </div>
   <header class="header" data-header>
     <div class="burger active" data-burger>
       <div class="burger__strip"></div>
@@ -53,7 +72,7 @@
   <div class="modal active" data-modal>
 
   </div>
-
+  <script src="scripts/animejs/lib/anime.min.js"></script>
   <script type="module" src="main.js"></script>
 
   <!-- Tests scripts -->
