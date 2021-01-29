@@ -33,11 +33,6 @@
 	font-size: 24px;
 	color:#7a1a0b;
 }
-@media (max-height: 700px) {
-	.modal__logo {
-		display: none;
-	}
-}
 
 /** Styles for modal wrap */
 .modal__wrap {
@@ -79,12 +74,14 @@
 	color: white;
 }
 .modal__names {
+	overflow: hidden;
 	resize: none;
 	height: 40px;
 	width: 100px;
 	padding: 10px;
 	margin: 5px;
 	border-radius: 10px;
+	border: 2px solid #000000;
 }
 .modal__wrap-names {
 	display: flex; 
@@ -103,6 +100,7 @@
 	width: 300px;
 	padding: 10px;
 	border-radius: 10px;
+	border: 2px solid #000000;
 }
 
 /* Styles for rules */
@@ -112,4 +110,23 @@
 	height: 250px;
 	height: calc(100vh - 500px);
 	padding: 20px;
+}
+@media (max-height: 770px) {
+	.modal__logo {
+		display: none;
+	}
+	.modal-rules__textarea {
+		height: calc(100vh - 270px);
+	}
+}
+@media (max-height: 600px) {
+	.modal__title {
+		font-size: 20px;
+	}
+	.modal__item {
+		font-size: 16px;
+	}
+	.modal__text-item {
+		font-size: 16px;
+	}
 }
