@@ -138,6 +138,8 @@ export class Game {
       } else {
         dice.setAttribute(`data-roll-dice-area-${i + 1}`, `${randomNum}`);
         dice.style.background = `url('img/game/dice-${randomNum}.png') center / cover no-repeat `;
+        dice.classList.add(`rolling_${i + 1}`);
+        setTimeout(() => dice.classList.remove(`rolling_${i + 1}`), 1000);
       }
     });
     if (this.findFirstFreeCellInDiceCells() !== (-1)) {
