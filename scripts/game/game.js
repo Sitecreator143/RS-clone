@@ -9,22 +9,11 @@ import { audioAPI, globalSettings } from "../../main.js";
 import { currentLogin } from "../../main.js";
 import { DB } from "../../main.js";
 
+export var game = null;
 export function loadGameFromLocalStorage() {
   return JSON.parse(localStorage.getItem("game")) || defaultGameSettings;
 }
 
-export function loadGameFromDB() {
-  let loadGame = DB.loadGame(currentLogin.playerName);
-  loadGame
-    .then((loadedGame) => {
-      initGame(globalSettings.getSettings(), loadedGame);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
-export var game = null;
 const setHotKeys = (e) => {
   const keys = {
     " ": () => game.rollTheDices(),
@@ -71,7 +60,7 @@ export class Game {
       this.setEventListener();
     } else {
       this.currentGameData = this.savedGameData;
-      initGameArea(this.savedGameData.settings, this.savedGameData);      
+      initGameArea(this.savedGameData.settings, this.savedGameData);
       this.restoreSavedGame();
       scoresSheet.markCurrentPlayer();
       this.setEventListener();
@@ -357,4 +346,14 @@ export function initGame(settings, savedGame = null) {
   main.innerHTML = "";
   game = new Game(settings, savedGame);
   game.createNewGameArea();
+}
+export function loadGameFromDB() {
+  let loadGame = DB.loadGame(currentLogin.playerName);
+  loadGame
+    .then((loadedGame) => {
+      initGame(globalSettings.getSettings(), loadedGame);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
