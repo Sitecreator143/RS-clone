@@ -9,7 +9,8 @@ import { initModalLogin } from "./scripts/modal/modal-login.js";
 import { Audio } from "./scripts/audio.js";
 import anime from "./scripts/animejs/lib/anime.es.js";
 
-anime({
+export const localAnime = anime;
+localAnime({
   targets: ".preloader__logo",
   rotate: "40turn",
   loop: true,

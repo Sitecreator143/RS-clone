@@ -5,6 +5,7 @@ import { game } from "./game.js";
 import { languages } from "../language.js";
 import { modalTypesObject } from "../../main.js";
 import { audioAPI } from "../../main.js";
+import { localAnime } from "../../main.js";
 
 export var gameArea = null;
 
@@ -38,6 +39,26 @@ export class GameArea {
     this.createScoresSheets();
     this.addScoresSheets();
     this.addMainContainer();
+    // start of an appereance game lobby animation
+    localAnime({
+      targets: "[data-lobby-cloth]",
+      keyframes: [
+        { translateX: "-200%" },
+        { translateX: "0%" }
+      ],
+      duration: 1500
+    });
+    // end of an appereance game lobby animation
+    // start of an appereance scores sheets animation
+    localAnime({
+      targets: "[data-ss-empty-sheet]",
+      keyframes: [
+        { translateX: "200%" },
+        { translateX: "0%" }
+      ],
+      duration: 1500
+    });
+    // end of an appereance scores sheets animation
     this.createButtons();
     this.addButtons();
     this.setEventListener();
