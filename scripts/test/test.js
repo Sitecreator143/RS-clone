@@ -35,29 +35,29 @@ describe("Проверка настроек", function () {
 
 /** Audio */
 describe("Проверка аудио", function () {
-  it("Нота А0 сыграла", function () {
-    assert.equal(audioAPI.playNote("A0"), undefined);
+  it("Нота success сыграла", function () {
+    assert(audioAPI.playNote("Success"));
   });
-  it("Нота А1 сыграла", function () {
-    assert.equal(audioAPI.playNote("A1"), undefined);
+  it("Нота push сыграла", function () {
+    assert(audioAPI.playNote("Push"));
+  });
+  it("Нота roll сыграла", function () {
+    assert(audioAPI.playNote("Roll"));
+  });
+  it("Нота error сыграла", function () {
+    assert(audioAPI.playNote("Error"));
   });
   it("Нота А2 сыграла", function () {
-    assert.equal(audioAPI.playNote("A2"), undefined);
+    assert(audioAPI.playNote("A2"));
   });
   it("Нота А3 сыграла", function () {
-    assert.equal(audioAPI.playNote("A3"), undefined);
-  });
-  it("Нота А4 сыграла", function () {
-    assert.equal(audioAPI.playNote("A4"), undefined);
-  });
-  it("Нота А5 сыграла", function () {
-    assert.equal(audioAPI.playNote("A5"), undefined);
+    assert(audioAPI.playNote("A3"));
   });
   it("Нота А6 сыграла", function () {
-    assert.equal(audioAPI.playNote("A6"), undefined);
+    assert(audioAPI.playNote("A4"));
   });
-  it("Нота А7 сыграла", function () {
-    assert.equal(audioAPI.playNote("A7"), undefined);
+  it("Нота А5 сыграла", function () {
+    assert(audioAPI.playNote("A5"));
   });
 });
 
