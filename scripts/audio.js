@@ -2,7 +2,6 @@
 export class Audio {
   constructor() {
     this.context = new (window.AudioContext || window.webkitAudioContext)();
-    this.playTime = 0.5;
     this.notes = [
       {
         noteName: "Success",
@@ -10,7 +9,8 @@ export class Audio {
           oscillatorFrequency: 500,
           biquadFilterType: "peaking",
           biquadFilterFrequency: 100,
-          biquadFilterGain: 25
+          biquadFilterGain: 10,
+          playTime: 0.5
         }
       },
       {
@@ -18,8 +18,9 @@ export class Audio {
         noteParams: {
           oscillatorFrequency: 50,
           biquadFilterType: "lowshelf",
-          biquadFilterFrequency: 200,
-          biquadFilterGain: 10
+          biquadFilterFrequency: 400,
+          biquadFilterGain: 10,
+          playTime: 0.3
         }
       },
       {
@@ -28,7 +29,8 @@ export class Audio {
           oscillatorFrequency: 15,
           biquadFilterType: "lowshelf",
           biquadFilterFrequency: 200,
-          biquadFilterGain: 25
+          biquadFilterGain: 20,
+          playTime: 3
         }
       },
       {
@@ -37,7 +39,8 @@ export class Audio {
           oscillatorFrequency: 100,
           biquadFilterType: "lowshelf",
           biquadFilterFrequency: 200,
-          biquadFilterGain: 25
+          biquadFilterGain: 10,
+          playTime: 0.3
         }
       }
     ];
@@ -59,9 +62,9 @@ export class Audio {
     this.biquadFilter.connect(this.gain);
   }
 
-  createGain() {
+  createGain(playTime) {
     this.gain = this.context.createGain();
-    this.gain.gain.exponentialRampToValueAtTime(0.001, this.now + this.playTime);
+    this.gain.gain.exponentialRampToValueAtTime(0.001, this.now + playTime);
     this.gain.connect(this.context.destination);
   }
 
@@ -73,13 +76,13 @@ export class Audio {
   playNote(noteName) {
     this.now = this.context.currentTime;
     const noteParams = this.findNote(noteName);
-    this.createGain();
+    this.createGain(noteParams.playTime);
     this.createBiquadFilter(noteParams.biquadFilterType,
       noteParams.biquadFilterFrequency,
       noteParams.biquadFilterGain);
     this.createOscillator(noteParams.oscillatorFrequency);
     this.oscillator.start(this.now);
-    this.oscillator.stop(this.now + this.playTime);
+    this.oscillator.stop(this.now + noteParams.playTime);
     return this;
   }
 }
