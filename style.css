@@ -13,7 +13,6 @@ a:focus,a:active{ outline: none; }
 nav, footer, header, aside { display: block; }
 
 html, body {
-  overflow: hidden;
   height: 100%;
   width: 100%;
   line-height: 1.15;

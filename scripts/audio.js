@@ -42,6 +42,46 @@ export class Audio {
           biquadFilterGain: 10,
           playTime: 0.3
         }
+      },
+      {
+        noteName: "A2",
+        noteParams: {
+          oscillatorFrequency: 110,
+          biquadFilterType: "lowshelf",
+          biquadFilterFrequency: 200,
+          biquadFilterGain: 10,
+          playTime: 0.3
+        }
+      },
+      {
+        noteName: "A3",
+        noteParams: {
+          oscillatorFrequency: 220,
+          biquadFilterType: "lowshelf",
+          biquadFilterFrequency: 200,
+          biquadFilterGain: 10,
+          playTime: 0.3
+        }
+      },
+      {
+        noteName: "A4",
+        noteParams: {
+          oscillatorFrequency: 440,
+          biquadFilterType: "lowshelf",
+          biquadFilterFrequency: 200,
+          biquadFilterGain: 10,
+          playTime: 0.3
+        }
+      },
+      {
+        noteName: "A5",
+        noteParams: {
+          oscillatorFrequency: 880,
+          biquadFilterType: "lowshelf",
+          biquadFilterFrequency: 200,
+          biquadFilterGain: 10,
+          playTime: 0.3
+        }
       }
     ];
   }
